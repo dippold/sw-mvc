@@ -12,7 +12,6 @@ import org.builderforce.web.mvc.interfaces.ICmd;
 public class Result {
     
     private boolean success;
-
     
     
     private int id;

@@ -8,6 +8,6 @@ package org.builderforce.web.mvc.enums;
  */
 public enum MvcEnum {
     
-    mvc, cmd, action, id, pid, msg;
+    mvc, cmd, action, id, pid, ppid, pppid, msg;
     
 }
