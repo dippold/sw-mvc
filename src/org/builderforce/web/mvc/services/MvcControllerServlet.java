@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.builderforce.web.mvc.enums.MvcEnum;
+import org.builderforce.web.mvc.enums.MVC;
 import org.builderforce.web.mvc.interfaces.ICmd;
 
 /**
@@ -42,7 +42,7 @@ public class MvcControllerServlet extends HttpServlet {
             
             try {
                 
-                String cmd = this.readParameter(request, MvcEnum.cmd.toString());
+                String cmd = this.readParameter(request, MVC.CMD.getName());
                 
                 Class theClass = Class.forName(getInitParameter("cmdPackage") + "." + cmd);
                 
@@ -58,9 +58,8 @@ public class MvcControllerServlet extends HttpServlet {
 
                 request.setAttribute("msg", 
                         "ERROR MVC LEVEL-1: Não encontrei o Cmd: " 
-                                + this.readParameter(
-                                        request, 
-                                        MvcEnum.cmd.toString(), 
+                                + this.readParameter(request, 
+                                        MVC.CMD.getName(), 
                                         "Não submetido ao controlador!")
                 );
                 

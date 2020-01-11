@@ -12,10 +12,6 @@ import org.builderforce.web.mvc.interfaces.ICmd;
 public class Result {
     
     private boolean success;
-    
-    
-    private int id;
-    private int pid;
     private Object data;
     
     private ICmd source; // Quem enviou?
