@@ -1,12 +1,15 @@
-package org.builderforce.web.mvc.abstracts;
+package org.softwareworkforce.web.mvc.abstracts;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.builderforce.web.mvc.enums.CRUD;
-import org.builderforce.web.mvc.enums.MODEL;
-import org.builderforce.web.mvc.enums.MVC;
+import javax.servlet.http.HttpSession;
+import org.softwareworkforce.web.mvc.enums.CRUD;
+import org.softwareworkforce.web.mvc.enums.MODEL;
+import org.softwareworkforce.web.mvc.enums.MSGS;
+import org.softwareworkforce.web.mvc.enums.MVC;
+import org.softwareworkforce.web.mvc.enums.VIEWS;
 
 /**
  *
@@ -21,13 +24,13 @@ public abstract class AbstractCmd {
 
         String action = readParameter(req, MVC.ACTION.getName());
         String nextCmd;
-        
+
         if (action.equals(CRUD.ADD.getName())) {
             nextCmd = __add(req, res);
         } else if (action.equals(CRUD.UPD.getName())) {
             nextCmd = __upd(req, res);
         } else if (action.equals(CRUD.DEL.getName())) {
-            nextCmd = __del(req, res);            
+            nextCmd = __del(req, res);
         } else if (action.equals(MODEL.ADD.getName())) {
             nextCmd = __addBuildModel(req, res);
         } else if (action.equals(MODEL.UPD.getName())) {
@@ -36,12 +39,13 @@ public abstract class AbstractCmd {
             nextCmd = __delBuildModel(req, res);
         } else if (action.equals(MODEL.LST.getName())) {
             nextCmd = __lstBuildModel(req, res);
-        } else if (action.equals(MODEL.VIEW.getName())) {    
+        } else if (action.equals(MODEL.VIEW.getName())) {
             nextCmd = __viewBuildModel(req, res);
         } else {
-           nextCmd = "NotFoundActionCmd"; 
-        }                
-        
+            nextCmd = "";
+            __notFoundAction(req, res, action);            
+        }
+
 //        switch (action) {            
 //            case "add":
 //                nextCmd = __add(req, res);
@@ -71,33 +75,48 @@ public abstract class AbstractCmd {
 //                nextCmd = "NotFoundActionCmd";
 //                break;
 //        }
-
         return nextCmd;
     }
 
-    
     protected abstract String __add(HttpServletRequest req, HttpServletResponse res);
+
     protected abstract String __upd(HttpServletRequest req, HttpServletResponse res);
+
     protected abstract String __del(HttpServletRequest req, HttpServletResponse res);
-    
+
     protected abstract String __addBuildModel(HttpServletRequest req, HttpServletResponse res);
+
     protected abstract String __updBuildModel(HttpServletRequest req, HttpServletResponse res);
+
     protected abstract String __delBuildModel(HttpServletRequest req, HttpServletResponse res);
+
     protected abstract String __viewBuildModel(HttpServletRequest req, HttpServletResponse res);
+
     protected abstract String __lstBuildModel(HttpServletRequest req, HttpServletResponse res);
-    
-    private String readParameter(HttpServletRequest req, String parameterName) {
+
+    protected void __notFoundAction(HttpServletRequest req, HttpServletResponse res, String action) throws ServletException, IOException {
+        killSession(req);
+        req.setAttribute(MVC.MSG.getName(),MSGS.ACTION_NOT_FOUND + action);
+        req.getRequestDispatcher(VIEWS.LOGIN.name()).forward(req, res);
+    }
+
+    public static String readParameter(HttpServletRequest req, String parameterName) {
 
         return readParameter(req, parameterName, "");
     }
 
-    private String readParameter(HttpServletRequest req, String parameterName, String defaultValue) {
+    public static String readParameter(HttpServletRequest req, String parameterName, String defaultValue) {
         String value = req.getParameter(parameterName);
         if ((value == null) || (value.equals(""))) {
             value = defaultValue;
         }
 
         return value;
+    }
+
+    public static void killSession(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        session.invalidate();
     }
 
 }

@@ -1,4 +1,6 @@
-package org.builderforce.web.mvc.enums;
+package org.softwareworkforce.web.mvc.enums;
+
+import java.util.LinkedList;
 
 /**
  *
@@ -13,7 +15,15 @@ public enum MODEL {
     UPD("bm-upd"), 
     DEL("bm-del"),
     VIEW("bm-view");
-     
+
+    public static String[] getNames() {
+        java.util.LinkedList<String> list = new LinkedList<>();
+        for (MODEL o : MODEL.values()) {
+            list.add(o.name());
+        }
+
+        return list.toArray(new String[list.size()]);
+    }    
     
     private final String name;
     
