@@ -10,8 +10,8 @@ import java.util.LinkedList;
  */
 public enum VIEWS {
     
-    LOGIN("signin.jsp"),
-    HOME("WEB-INF/views/home.jsp"); 
+    LOGIN("SignIn.jsp"),
+    HOME("WEB-INF/views/Home.jsp"); 
 
     public static String[] getNames() {
         java.util.LinkedList<String> list = new LinkedList<>();

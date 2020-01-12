@@ -17,7 +17,7 @@ public enum MVC {
     PID("pid"), 
     PPID("ppid"),
     MSG("msg"),
-    CMD_PACKAGE("org.softwareworkforce.tasks.web.cmds");
+    CMD_PACKAGE("org.ftd.workforce.workhours.cmds");
     
     public static String[] getNames() {
         java.util.LinkedList<String> list = new LinkedList<>();
