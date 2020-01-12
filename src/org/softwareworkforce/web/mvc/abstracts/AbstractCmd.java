@@ -10,6 +10,7 @@ import org.softwareworkforce.web.mvc.enums.MODEL;
 import org.softwareworkforce.web.mvc.enums.MSGS;
 import org.softwareworkforce.web.mvc.enums.MVC;
 import org.softwareworkforce.web.mvc.enums.VIEWS;
+import org.softwareworkforce.web.mvc.interfaces.ICmd;
 
 /**
  *
@@ -17,9 +18,10 @@ import org.softwareworkforce.web.mvc.enums.VIEWS;
  * @version 1.0.2 - 2020-1-11
  *
  */
-public abstract class AbstractCmd {
+public abstract class AbstractCmd implements ICmd {
 
-    String execute(HttpServletRequest req, HttpServletResponse res)
+    @Override
+    public String execute(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
 
         String action = readParameter(req, MVC.ACTION.getName());

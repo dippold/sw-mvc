@@ -11,9 +11,10 @@ import java.util.LinkedList;
 public enum MSGS {
     
     CMD_NOT_FOUND("ERROR MVC LEVEL-1: Não encontrei o Cmd: "), 
-    ACTION_NOT_FOUND("ERROR MVC LEVEL-2: Não encontrei a Action: "), 
-    
-    DEL("del"); 
+    ACTION_NOT_FOUND("ERROR MVC LEVEL-2: Não encontrei a Action: "),     
+    INVALID_PASSWD("Senha inválida ou bloqueada!"),
+    PASSWD_REQUERED("Informe email e senha p/ autenticação!"),
+    INVALID_SESSION("Sessão inválida. Autentique-se novamente."); 
     
     public static String[] getNames() {
         java.util.LinkedList<String> list = new LinkedList<>();

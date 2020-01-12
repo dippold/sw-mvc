@@ -16,7 +16,8 @@ public enum SECURITY_ACTIONS {
     LOGOUT(""), 
     LOCK_USER(""), 
     ADD_PERMISSION(""), 
-    DEL_PERMISSION("");
+    DEL_PERMISSION(""),
+    RUN_SETUP("");
         
     public static String[] getNames() {
         java.util.LinkedList<String> list = new LinkedList<>();
