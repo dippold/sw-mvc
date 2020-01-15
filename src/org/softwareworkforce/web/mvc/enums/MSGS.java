@@ -14,7 +14,8 @@ public enum MSGS {
     ACTION_NOT_FOUND("ERROR MVC LEVEL-2: Não encontrei a Action: "),     
     INVALID_PASSWD("Senha inválida ou bloqueada!"),
     PASSWD_REQUERED("Informe email e senha p/ autenticação!"),
-    INVALID_SESSION("Sessão inválida. Autentique-se novamente."); 
+    INVALID_SESSION("Sessão inválida. Autentique-se novamente."),
+    INVALID_RULE("Usuário sem permissão p/ executar O Cmd: ");
     
     public static String[] getNames() {
         java.util.LinkedList<String> list = new LinkedList<>();
