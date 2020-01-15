@@ -23,29 +23,34 @@ public abstract class AbstractCmd implements ICmd {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
-
-        String action = readParameter(req, MVC.ACTION.getName());
+        
         String nextCmd;
-
-        if (action.equals(CRUD.ADD.getName())) {
-            nextCmd = __add(req, res);
-        } else if (action.equals(CRUD.UPD.getName())) {
-            nextCmd = __upd(req, res);
-        } else if (action.equals(CRUD.DEL.getName())) {
-            nextCmd = __del(req, res);
-        } else if (action.equals(MODEL.ADD.getName())) {
-            nextCmd = __addBuildModel(req, res);
-        } else if (action.equals(MODEL.UPD.getName())) {
-            nextCmd = __updBuildModel(req, res);
-        } else if (action.equals(MODEL.DEL.getName())) {
-            nextCmd = __delBuildModel(req, res);
-        } else if (action.equals(MODEL.LST.getName())) {
-            nextCmd = __lstBuildModel(req, res);
-        } else if (action.equals(MODEL.VIEW.getName())) {
-            nextCmd = __viewBuildModel(req, res);
+        
+        if (!__securityValidate()) {
+            req.setAttribute(MVC.MSG.getName(), MSGS.INVALID_RULE.getName() + this.getClass().getSimpleName());
+            nextCmd = MVC.URL_SECURITY_LOGOUT.getName();
         } else {
-            nextCmd = "";
-            __notFoundAction(req, res, action);            
+            String action = readParameter(req, MVC.ACTION.getName());
+            if (action.equals(CRUD.ADD.getName())) {
+                nextCmd = __add(req, res);
+            } else if (action.equals(CRUD.UPD.getName())) {
+                nextCmd = __upd(req, res);
+            } else if (action.equals(CRUD.DEL.getName())) {
+                nextCmd = __del(req, res);
+            } else if (action.equals(MODEL.ADD.getName())) {
+                nextCmd = __addBuildModel(req, res);
+            } else if (action.equals(MODEL.UPD.getName())) {
+                nextCmd = __updBuildModel(req, res);
+            } else if (action.equals(MODEL.DEL.getName())) {
+                nextCmd = __delBuildModel(req, res);
+            } else if (action.equals(MODEL.LST.getName())) {
+                nextCmd = __lstBuildModel(req, res);
+            } else if (action.equals(MODEL.VIEW.getName())) {
+                nextCmd = __viewBuildModel(req, res);
+            } else {
+                nextCmd = "";
+                __notFoundAction(req, res, action);
+            }
         }
 
 //        switch (action) {            
@@ -80,6 +85,8 @@ public abstract class AbstractCmd implements ICmd {
         return nextCmd;
     }
 
+    protected abstract boolean __securityValidate();
+
     protected abstract String __add(HttpServletRequest req, HttpServletResponse res);
 
     protected abstract String __upd(HttpServletRequest req, HttpServletResponse res);
@@ -98,7 +105,7 @@ public abstract class AbstractCmd implements ICmd {
 
     protected void __notFoundAction(HttpServletRequest req, HttpServletResponse res, String action) throws ServletException, IOException {
         killSession(req);
-        req.setAttribute(MVC.MSG.getName(),MSGS.ACTION_NOT_FOUND + action);
+        req.setAttribute(MVC.MSG.getName(), MSGS.ACTION_NOT_FOUND + action);
         req.getRequestDispatcher(VIEWS.LOGIN.name()).forward(req, res);
     }
 
