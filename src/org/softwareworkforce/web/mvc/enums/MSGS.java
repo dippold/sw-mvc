@@ -15,7 +15,7 @@ public enum MSGS {
     INVALID_PASSWD("Senha inválida ou bloqueada!"),
     PASSWD_REQUERED("Informe email e senha p/ autenticação!"),
     INVALID_SESSION("Sessão inválida. Autentique-se novamente."),
-    INVALID_RULE("Usuário sem permissão p/ executar O Cmd: ");
+    INVALID_RULE("Usuário sem permissão p/ ");
     
     public static String[] getNames() {
         java.util.LinkedList<String> list = new LinkedList<>();
