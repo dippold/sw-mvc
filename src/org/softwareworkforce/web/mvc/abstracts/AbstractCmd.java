@@ -26,11 +26,11 @@ public abstract class AbstractCmd implements ICmd {
         
         String nextCmd;
         
-        if (!__securityValidate()) {
+        if (!__securityValidate(req)) {
             req.setAttribute(MVC.MSG.getName(), MSGS.INVALID_RULE.getName() + this.getClass().getSimpleName());
             nextCmd = MVC.URL_SECURITY_LOGOUT.getName();
         } else {
-            String action = readParameter(req, MVC.ACTION.getName());
+            String action = readParameter(req, MVC.ACTION.getName(),MODEL.LST.getName());
             if (action.equals(CRUD.ADD.getName())) {
                 nextCmd = __add(req, res);
             } else if (action.equals(CRUD.UPD.getName())) {
@@ -82,10 +82,11 @@ public abstract class AbstractCmd implements ICmd {
 //                nextCmd = "NotFoundActionCmd";
 //                break;
 //        }
+
         return nextCmd;
     }
 
-    protected abstract boolean __securityValidate();
+    protected abstract boolean __securityValidate(HttpServletRequest req);
 
     protected abstract String __add(HttpServletRequest req, HttpServletResponse res);
 
