@@ -129,4 +129,29 @@ public abstract class AbstractCmd implements ICmd {
         session.invalidate();
     }
 
+    public static String buildUrl(String cmd, String action) {
+        StringBuilder out = new StringBuilder(MVC.URL.getName());
+        out.append("?");
+        out.append(MVC.CMD.getName());
+        out.append("=");
+        out.append(cmd);
+        out.append("&");
+        out.append(MVC.ACTION.getName());
+        out.append("=");
+        out.append(action);
+        
+        return out.toString();
+    }
+
+    public static String buildUrl(String cmd, String action, String id) {
+        StringBuilder out = new StringBuilder(buildUrl(cmd, action));
+        out.append("&");
+        out.append(MVC.ID.getName());
+        out.append("=");
+        out.append(id);
+        
+        return out.toString();
+    }
+
+    
 }
