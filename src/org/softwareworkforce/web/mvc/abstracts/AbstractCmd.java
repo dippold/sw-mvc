@@ -153,5 +153,16 @@ public abstract class AbstractCmd implements ICmd {
         return out.toString();
     }
 
+    public static Long getUserSessionId(HttpServletRequest req) {
+        HttpSession session = req.getSession(false);
+        
+        return (Long) session.getAttribute("userId");
+    }
+
+    public static int getUserSessionRuleId(HttpServletRequest req) {
+        HttpSession session = req.getSession(false);
+        
+        return (int) session.getAttribute("userRuleId");
+    }
     
 }
